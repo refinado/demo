@@ -1,0 +1,10 @@
+{    
+    "id":"1008611",
+	"name" : "xiaofang",
+	"age":18,
+	"sex" : "nv",
+	"school":{
+	    "name":"八十三中",
+	    "location":"咸宁中路"
+	}
+}

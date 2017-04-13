@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html ng-app="my-app">
+	<head>
+		<meta charset="UTF-8">
+		<title>Test angular</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			table {
+				width: 200px;
+				height: 100px;
+				border: 1px solid red;
+				border-collapse: collapse;
+				margin-top: 100px;
+			}
+			table td {
+				width: 65px;
+				height: 30px;
+				line-height: 30px;
+				text-align: center;
+				border: 1px dashed pink;
+			}
+			li{
+				list-style: none;
+				float: left;
+				padding-left: 20px;
+			}
+		</style>
+		<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/underscore.js"></script>
+		<script type="text/javascript" src="js/angular-route.min.js"></script>
+		<script type="text/javascript" src="js/my.js"></script>
+	</head>
+	<body>
+		<div ng-controller="mycontrol">
+			<input type="text" ng-model="person.name ">
+			<p>{{person.name}}</p>
+			<table>
+				<tr ng-repeat="p in persons | orderBy: 'age'">
+					<td>{{p.name}}</td>
+					<td>{{p.age}}</td>
+					<td>{{p.sex}}</td>
+					<td ng-click="del(p.id)">x</td>
+				</tr>
+				<input type="text" placeholder="请输入姓名" id="na">
+				<input type="text" placeholder="请输入年龄" id="ag">
+				<input type="text" placeholder="请输入性别" id="se">
+				<button ng-click="addPerson()">{{add}}</button>
+				<button ng-click="cha()">{{cg}}</button>
+				<input type="text" value="45" class="cg">
+				<input type="text" class="changeInfo" /><button ng-click="changeInfo()">修改学生信息</button>
+			</table>
+			<div ng-include="test.html"></div>
+			<ul>
+				<li>
+					<a href="#/">首页</a>
+				</li>
+				<li>
+					<a href="#/computers">电脑</a>
+				</li>
+				<li>
+					<a href="#/printers">打印机</a>
+				</li>
+				<li>
+					<a href="#/blabla">其他</a>
+				</li>
+			</ul>
+			<div ng-view style="clear:both;"></div>
+		</div>
+	</body>
+</html>
