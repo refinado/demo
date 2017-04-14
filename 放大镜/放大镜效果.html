@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>放大镜效果</title>
+<style>
+	*{margin:0; padding:0;}
+	#container {position:relative; width:400px; top:100px; left:100px;}
+	.middle { width:400px; height:400px; position:relative;}
+	.middle img { width:400px; height:400px; }
+	.pop { width: 150px; height: 150px; background:black; opacity:0.3; position:absolute; top:0; left:0;display:none;}
+	ul { list-style:none; }
+	.small { width:50px; height:50px; float:left; margin:5px;}
+	.small img {width:50px; height:50px; }
+	.small.curr {border:1px solid red;}
+	.big {width:400px; height:400px;overflow:hidden; position:absolute; top:100px; left:600px;display:none;}
+	.big img{position:absolute;}
+</style>
+<script src="jquery-1.12.4.min.js"></script>
+<script>
+	$(function(){
+		var popWidth=$(".pop").outerWidth(),	//outerWidth()获取第一个匹配元素外部宽度（默认包括补白和边框）。
+			popHeight=$(".pop").outerHeight(),
+			middleWidth=$(".middle").outerWidth(),
+			middleHeight=$(".middle").outerHeight(),
+			rateX=$(".big").outerWidth()/popWidth,
+			rateY=$(".big").outerHeight()/popHeight;
+
+		$(".big img").css({		
+			width:middleWidth*rateX,
+			height:middleHeight*rateY
+		 });
+
+		$(".middle").hover(function(){
+			$(".pop").show();
+			$(".big").show();
+		},function(){
+			$(".pop").hide();
+			$(".big").hide();
+		}).on("mousemove",function(event){
+			//先根据光标在文档中绝对位置设置div.pop层在文档中的绝对定位
+			$(".pop").offset({		//offset()获取的是在可视窗口的相对位置
+				left:event.pageX-popWidth/2,
+				top:event.pageY-popHeight/2
+			});
+			//获取div.pop层相对父容器的相对定位位置
+			var pos=$(".pop").position();
+			//获取div.pop层相对父容器的top,left值
+			var _top=pos.top,
+				_left=pos.left;
+			if(_top<0)
+				_top=0;
+			else if(_top>middleHeight-popHeight)//从下方超出
+				_top=middleHeight-popHeight;
+			if(_left<0)
+				_left=0;
+			else if(_left>middleWidth-popWidth)
+				_left=middleWidth-popWidth;
+
+			//重新设置div.pop相对父容器的定位
+			$(".pop").css({
+				"left":_left,
+				"top":_top
+			});
+
+			//定位在div.big盒子中的图片位置
+			$(".big img").css({
+				top: - _top*rateY,
+				left: - _left*rateX
+			});
+
+			//切换图片
+			$(".small").on("click",function(){
+				//图片的路径
+				var src=$(this).find("img").attr("src");
+				//设置中图的图片路径
+	//	console.log(src);
+				$(".middle>img").attr("src",src.replace("50_","400_"));
+				//设置大图图片路径
+				$(".big>img").attr("src",src.replace("50_","800_"));
+				//切换样式
+				$(this).addClass('curr').siblings().removeClass('curr');
+			});
+
+		});
+		
+		
+
+	});
+</script>
+</head>
+<body style="background:#e0e0e0;">
+	<div id="container">
+		<div class="middle">
+			<img src="img/400_4.jpg" />
+			<div class="pop"></div>
+		</div>
+		<ul class="small_box">
+			<li class="small curr"><img src="img/50_4.jpg" /></li>
+			<li class="small"><img src="img/50_3.jpg" /></li>
+			<li class="small"><img src="img/50_2.jpg" /></li>
+			<li class="small"><img src="img/50_1.jpg" /></li>
+		</ul>
+	</div>
+
+	<div class="big">
+		<img src="img/800_4.jpg" />
+	</div>
+</body>
+</html>
+
+
+
