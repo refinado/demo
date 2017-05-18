@@ -12,6 +12,7 @@ function $(param, obj){
 
 // 根据类名查找元素
 function getByClass(className, obj) {
+	console.log("a");
 	obj = obj || document;
 	if (obj.getElementsByClassName) // 支持使用 getElementsByClassName 方法
 		return obj.getElementsByClassName(className);
