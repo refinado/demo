@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+   body{background: #ccc}
+   canvas{background: white}
+
+   </style>
+</head>
+<body>
+	<canvas id="canvas" width="600" height="600"></canvas>
+	<script type="text/javascript">
+	var timer=setInterval(function(){var date=new Date();
+	   var oHour=date.getHours();
+	   var oMinute=date.getMinutes();
+	   var osecond=date.getSeconds();	  
+              var  oh = (-90+oHour*30+oMinute/2)*Math.PI/180;			
+			 
+
+			  var  os = (-90+osecond*6)*Math.PI/180;
+ var  om = (-90+oMinute*6+os/360)*Math.PI/180;
+       var canvas=document.getElementById("canvas");
+       var ctx=canvas.getContext("2d");
+      ctx.beginPath();
+			   for(var i =0;i<60;i++){
+					  ctx.moveTo(300,300);
+					  ctx.arc(300,300,150,i*6*Math.PI/180,6*(i+1)*Math.PI/180,false);
+			   }
+				ctx.stroke();			
+				  ctx.beginPath();
+				 ctx.arc(300,300,140,0,360*Math.PI/180,false);
+				 ctx.fillStyle="white";
+				 ctx.fill();
+
+				 ctx.beginPath();
+				  for(var i =0;i<12;i++){
+					  ctx.moveTo(300,300);
+					  ctx.arc(300,300,150,i*30*Math.PI/180,30*(i+1)*Math.PI/180,false);
+                      ctx.lineWidth=6;
+			   }
+				  ctx.stroke();							
+				  ctx.beginPath();
+				 ctx.arc(300,300,130,0,360*Math.PI/180,false);
+				 ctx.fillStyle="white";
+				 ctx.fill();
+
+               //分针
+				ctx.beginPath();
+				ctx.moveTo(300,300);
+				ctx.arc(300,300,100,om,om,false);
+				ctx.lineWidth=3;				
+				ctx.stroke();
+				//时针
+				ctx.beginPath();
+				ctx.moveTo(300,300);
+				ctx.arc(300,300,55,oh,oh,false);
+				ctx.lineWidth=6;				
+				ctx.stroke();
+                  //秒针
+                
+				ctx.beginPath();
+				ctx.moveTo(300,300);
+				ctx.arc(300,300,140,os,os,false);
+				ctx.lineWidth=1;				
+				ctx.stroke();
+			
+                  ctx.beginPath();   
+				ctx.arc(300,300,5,0*Math.PI/180,360*Math.PI/180,false);
+				ctx.fillStyle="red";
+				ctx.fill();
+				ctx.stroke();
+				  ctx.font="20px 微软雅黑";
+			      ctx.fillText("1",350,200);
+			      ctx.fillText("2",400,250);
+			      ctx.fillText("3",415,310);
+			      ctx.fillText("4",400,370);
+			      ctx.fillText("5",350,415);
+			      ctx.fillText("6",295,425);
+			      ctx.fillText("7",235,410);
+			      ctx.fillText("8",185,370);
+			      ctx.fillText("9",170,310);
+			      ctx.fillText("10",185,250);
+			      ctx.fillText("11",230,200);
+			      ctx.fillText("12",290,190);
+			},1000);
+	    
+
+
+
+				
+   </script>
+</body>
+</html>
